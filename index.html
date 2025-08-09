@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>シフト登録（ミニ）</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' ry='3' fill='%23007aff'/%3E%3Ctext x='8' y='11' font-size='9' text-anchor='middle' fill='white' font-family='Arial,sans-serif'%3ESH%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../supabase-config.js"></script>
+  <script defer src="app.js"></script>
+  <meta name="robots" content="noindex" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>シフト登録（ミニ）</h1>
+  </header>
+
+  <main class="container">
+    <section class="upload-section">
+      <div id="dropZone" class="drop-zone" tabindex="0">
+        <div class="drop-zone-icon">📊</div>
+        <p class="drop-zone-title">エクセルファイルをアップロード</p>
+        <p class="drop-zone-sub">ドラッグ＆ドロップ、またはクリックして選択</p>
+        <button class="btn" type="button" onclick="document.getElementById('fileInput').click()">ファイルを選択</button>
+        <input id="fileInput" class="file-input" type="file" accept=".xlsx,.xls" />
+      </div>
+
+      <div id="selectedFiles" class="selected-files hidden">
+        <h2 class="section-title">選択されたファイル</h2>
+        <div id="fileList" class="file-list"></div>
+        <button id="analyzeBtn" class="btn primary" type="button" onclick="processExcelFiles()">解析を開始</button>
+      </div>
+    </section>
+
+    <section id="excelPreview" class="preview-section hidden">
+      <div class="sheet-selector">
+        <label for="sheetSelect">シート:</label>
+        <select id="sheetSelect" onchange="changeSheet()">
+          <option value="">シートを選択してください</option>
+        </select>
+      </div>
+      <div id="tableContainer" class="table-container"></div>
+    </section>
+
+    <section class="preview-section" style="margin-top:16px">
+      <h2 class="section-title" style="color:#ffb3b3">危険ゾーン</h2>
+      <p class="drop-zone-sub">Supabase の認証情報が設定されている場合のみ実行できます。</p>
+      <button class="btn" style="border-color:#a33;color:#ffb3b3" type="button" onclick="deleteAllShifts()">シフトデータを全削除</button>
+    </section>
+  </main>
+
+  <footer class="site-footer">© Shift Register Minimal</footer>
+</body>
+</html>
+
+
